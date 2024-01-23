@@ -111,6 +111,7 @@ export type ElementShapes = {
   ellipse: Drawable;
   diamond: Drawable;
   iframe: Drawable;
+  barcode: Drawable;
   embeddable: Drawable;
   freedraw: Drawable | null;
   arrow: Drawable[];

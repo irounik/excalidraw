@@ -28,6 +28,7 @@ import {
   StrokeRoundness,
   ExcalidrawFrameLikeElement,
   ExcalidrawIframeLikeElement,
+  ExcalidrawBarcodeElement,
 } from "./types";
 
 import {
@@ -262,6 +263,7 @@ const hitTestPointAgainstElement = (args: HitTestArgs): boolean => {
     case "text":
     case "diamond":
     case "ellipse":
+    case "barcode":
       const distance = distanceToBindableElement(args.element, args.point);
       return args.check(distance, args.threshold);
     case "freedraw": {
@@ -321,6 +323,7 @@ export const distanceToBindableElement = (
     case "embeddable":
     case "frame":
     case "magicframe":
+    case "barcode":
       return distanceToRectangle(element, point);
     case "diamond":
       return distanceToDiamond(element, point);
@@ -352,7 +355,8 @@ const distanceToRectangle = (
     | ExcalidrawFreeDrawElement
     | ExcalidrawImageElement
     | ExcalidrawIframeLikeElement
-    | ExcalidrawFrameLikeElement,
+    | ExcalidrawFrameLikeElement
+    | ExcalidrawBarcodeElement,
   point: Point,
 ): number => {
   const [, pointRel, hwidth, hheight] = pointRelativeToElement(element, point);
@@ -711,6 +715,7 @@ export const determineFocusPoint = (
     case "embeddable":
     case "frame":
     case "magicframe":
+    case "barcode":
       point = findFocusPointForRectangulars(element, focus, adjecentPointRel);
       break;
     case "ellipse":
@@ -765,6 +770,7 @@ const getSortedElementLineIntersections = (
     case "embeddable":
     case "frame":
     case "magicframe":
+    case "barcode":
       const corners = getCorners(element);
       intersections = corners
         .flatMap((point, i) => {
@@ -800,7 +806,8 @@ const getCorners = (
     | ExcalidrawDiamondElement
     | ExcalidrawTextElement
     | ExcalidrawIframeLikeElement
-    | ExcalidrawFrameLikeElement,
+    | ExcalidrawFrameLikeElement
+    | ExcalidrawBarcodeElement,
   scale: number = 1,
 ): GA.Point[] => {
   const hx = (scale * element.width) / 2;
@@ -813,6 +820,7 @@ const getCorners = (
     case "embeddable":
     case "frame":
     case "magicframe":
+    case "barcode":
       return [
         GA.point(hx, hy),
         GA.point(hx, -hy),
@@ -962,7 +970,8 @@ export const findFocusPointForRectangulars = (
     | ExcalidrawDiamondElement
     | ExcalidrawTextElement
     | ExcalidrawIframeLikeElement
-    | ExcalidrawFrameLikeElement,
+    | ExcalidrawFrameLikeElement
+    | ExcalidrawBarcodeElement,
   // Between -1 and 1 for how far away should the focus point be relative
   // to the size of the element. Sign determines orientation.
   relativeDistance: number,

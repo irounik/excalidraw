@@ -25,6 +25,7 @@ import {
   newIframeElement,
   newImageElement,
   newMagicFrameElement,
+  newBarcodeElement,
 } from "../../element/newElement";
 import { Point } from "../../types";
 import { getSelectedElements } from "../../scene/selection";
@@ -260,6 +261,15 @@ export class API {
           fileId: (rest.fileId as string as FileId) ?? null,
           status: rest.status || "saved",
           scale: rest.scale || [1, 1],
+        });
+        break;
+      case "barcode":
+        element = newBarcodeElement({
+          ...base,
+          width,
+          height,
+          type,
+          data: rest.text ? rest.text : "SAMPLE BARCODE",
         });
         break;
       case "frame":

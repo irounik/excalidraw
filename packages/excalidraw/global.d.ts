@@ -61,6 +61,16 @@ declare module "png-chunks-extract" {
   function extract(buffer: Uint8Array): TEXtChunk[];
   export = extract;
 }
+
+declare module "jsbarcode" {
+  function JsBarcode(
+    svgElement: any,
+    data: any,
+    options: { width: number; height: number },
+  ): void;
+  export = JsBarcode;
+}
+
 // -----------------------------------------------------------------------------
 
 interface Blob {

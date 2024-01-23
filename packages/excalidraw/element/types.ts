@@ -128,6 +128,12 @@ export type ExcalidrawImageElement = _ExcalidrawElementBase &
     scale: [number, number];
   }>;
 
+export type ExcalidrawBarcodeElement = _ExcalidrawElementBase &
+  Readonly<{
+    type: "barcode";
+    data: string;
+  }>;
+
 export type InitializedExcalidrawImageElement = MarkNonNullable<
   ExcalidrawImageElement,
   "fileId"
@@ -170,7 +176,8 @@ export type ExcalidrawElement =
   | ExcalidrawFrameElement
   | ExcalidrawMagicFrameElement
   | ExcalidrawIframeElement
-  | ExcalidrawEmbeddableElement;
+  | ExcalidrawEmbeddableElement
+  | ExcalidrawBarcodeElement;
 
 export type NonDeleted<TElement extends ExcalidrawElement> = TElement & {
   isDeleted: boolean;
@@ -205,7 +212,8 @@ export type ExcalidrawBindableElement =
   | ExcalidrawIframeElement
   | ExcalidrawEmbeddableElement
   | ExcalidrawFrameElement
-  | ExcalidrawMagicFrameElement;
+  | ExcalidrawMagicFrameElement
+  | ExcalidrawBarcodeElement;
 
 export type ExcalidrawTextContainer =
   | ExcalidrawRectangleElement

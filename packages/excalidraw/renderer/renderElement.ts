@@ -62,6 +62,7 @@ import {
 import { getContainingFrame } from "../frame";
 import { normalizeLink, toValidURL } from "../data/url";
 import { ShapeCache } from "../scene/ShapeCache";
+import JsBarcode from "jsbarcode";
 
 // using a stronger invert (100% vs our regular 93%) and saturate
 // as a temp hack to make images in dark theme look closer to original
@@ -1259,6 +1260,16 @@ export const renderElementToSvg = (
         );
         addToRoot(clipG || g, element);
       }
+      break;
+    }
+    case "barcode": {
+      const { data, width, height } = element;
+      const svgElement = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "svg",
+      );
+      JsBarcode(svgElement, data, { width, height });
+      addToRoot(svgElement, element);
       break;
     }
     // frames are not rendered and only acts as a container

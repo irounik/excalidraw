@@ -16,6 +16,7 @@ import {
   ExcalidrawEmbeddableElement,
   ExcalidrawMagicFrameElement,
   ExcalidrawIframeElement,
+  ExcalidrawBarcodeElement,
 } from "./types";
 import {
   arrayToMap,
@@ -424,6 +425,18 @@ export const newImageElement = (
     status: opts.status ?? "pending",
     fileId: opts.fileId ?? null,
     scale: opts.scale ?? [1, 1],
+  };
+};
+
+export const newBarcodeElement = (
+  opts: {
+    type: "barcode";
+    data: string; // The data to encode in the barcode
+  } & ElementConstructorOpts,
+): NonDeleted<ExcalidrawBarcodeElement> => {
+  return {
+    ..._newElementBase<ExcalidrawBarcodeElement>("barcode", opts),
+    data: opts.data,
   };
 };
 
